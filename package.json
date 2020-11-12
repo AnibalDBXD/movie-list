@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.21.0",
+    "node-sass": "^5.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-redux": "^7.2.2",
@@ -13,7 +14,8 @@
   },
   "scripts": {
     "start": "react-scripts start ./src/app/index.js",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
