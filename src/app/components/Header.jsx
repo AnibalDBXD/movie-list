@@ -21,13 +21,10 @@ const Header = () => {
                             <Link className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="">API</Link>
+                            <a className="nav-link" href="https://www.themoviedb.org/documentation/api">API</a>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="">Github</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link disabled" to="#" tabIndex="-1" aria-disabled="true">Disabled</Link>
+                            <a className="nav-link" href="https://github.com/AnibalDBXD/movie-list">Github</a>
                         </li>
                     </ul>
                 </div>
