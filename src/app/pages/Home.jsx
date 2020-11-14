@@ -1,4 +1,4 @@
-import React/*, { useState, useEffect }*/ from "react";
+import React /*, { useState, useEffect }*/ from "react";
 // import { getPopularMovie } from '../../api/index';
 // import { FETCH_POPULAR_MOVIE } from '../../redux/Actions'
 // import { connect } from "react-redux";
@@ -27,25 +27,25 @@ function Home(props) {
     <main>
       <div className="container">
         <div className="row">
-          <div className="col m-2"
-          style={{"textAlign": "center",
-                  "color": "white"}} >
-              <h1 >Welcome to MovieList!</h1>
+          <div
+            className="col m-2"
+            style={{ textAlign: "center", color: "white" }}
+          >
+            <h1>Welcome to MovieList!</h1>
           </div>
         </div>
         <div className="row">
           <div className="col">
-            <Search/>
+            <Search />
           </div>
         </div>
-        <div className="row">
-          <MovieContainer/>
+        <div className="row" style={{ marginTop: "2em" }}>
+          <MovieContainer />
         </div>
       </div>
     </main>
   );
 }
-
 
 // const mapStateToProps = (state, props) => {
 //   return{
