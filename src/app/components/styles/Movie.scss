@@ -54,6 +54,10 @@ a {
   text-transform: uppercase;
 }
 
+.title-lite {
+  font-size: 1em !important;
+}
+
 .movie__description {
   max-height: 200px;
   transform: scale(0);
@@ -75,25 +79,25 @@ a {
   font-size: 1.1em;
 }
 
-.movie__duration {
+.movie__adult {
   transform: scale(0);
   opacity: 0;
   transition: transform 0.24s ease-in 0.15s, opacity 0.3s linear;
 }
 
-.movie__director {
+.movie__date {
   transform: scale(0);
   opacity: 0;
   transition: transform 0.24s ease-in 0.2s, opacity 0.3s linear;
 }
 
-.movie__year {
+.movie__vote {
   transform: scale(0);
   opacity: 0;
   transition: transform 0.24s ease-in 0.25s, opacity 0.3s linear;
 }
 
-.movie__cast {
+.movie__language {
   transform: scale(0);
   opacity: 0;
   transition: transform 0.24s ease-in 0.3s, opacity 0.3s linear;

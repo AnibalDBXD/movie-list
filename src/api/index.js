@@ -9,4 +9,8 @@ const getPopularMovie = (Page) => {
   return result;
 };
 
-export { getPopularMovie };
+const getPoster = (poster_path) => {
+  return `https://image.tmdb.org/t/p/original/${poster_path}`;
+};
+
+export { getPopularMovie, getPoster };

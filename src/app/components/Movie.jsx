@@ -2,25 +2,9 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
-import "./styles/Movie.scss";
+import { getPoster } from "../../api/index";
 
-const Rating = ({ rating }) => {
-  let stars = [];
-  for (let i = 1; i < 11; i++) {
-    let klass = "fas fa-star";
-    if (rating >= i && rating !== null) {
-      klass = "fas fa-star checked";
-    }
-    stars.push(
-      <i
-        style={{ direction: i % 2 === 0 ? "rtl" : "ltr" }}
-        key={i}
-        className={klass}
-      />
-    );
-  }
-  return <div className="movie__rating">{stars}</div>;
-};
+import "./styles/Movie.scss";
 
 const MovieInfo = ({ name, value }) => (
   <div className={`movie__${name}`}>
@@ -31,40 +15,49 @@ const MovieInfo = ({ name, value }) => (
   </div>
 );
 
-const Movie = ({ infos }) => {
-  //   const cast = infos.cast.map((actor) => <p key={actor}>{actor}</p>);
-  const TestBGimage =
-    "https://images-na.ssl-images-amazon.com/images/I/516ZmcSkY3L._AC_SY679_.jpg";
+const Movie = ({ data }) => {
+  const {
+    title,
+    poster_path,
+    adult,
+    overview,
+    release_date,
+    vote_average,
+    original_language,
+  } = data;
+  const adultContent = adult ? "Yes" : "No";
+
+  const caracterLimit = 150;
+
+  const overviewPost = overview.slice(0, caracterLimit) + "...";
+
   return (
     <div
       className="movie"
       style={{
-        backgroundImage: `url(${TestBGimage})` /*`url(${infos.poster})`*/,
+        backgroundImage: `url(${getPoster(poster_path)})`,
         color: "white",
       }}
     >
-      <h2 className="movie__title">{"Title" /*infos.title*/}</h2>
+      {title.length > 24 ? (
+        <h2 className="movie__title title-lite">{title}</h2>
+      ) : (
+        <h2 className="movie__title">{title}</h2>
+      )}
 
-      <span className="movie__description">
-        {"Lorem ipsum lorem ipsum" /*infos.description*/}
-      </span>
+      <span className="movie__description">{overviewPost}</span>
 
       <div className="movie__infos">
-        <MovieInfo name="duration" value={"124m" /*infos.duration*/} />
-        <MovieInfo name="director" value={"U" /*infos.director*/} />
-        <MovieInfo name="year" value={12 /*infos.year*/} />
-        <MovieInfo name="cast" value={1 /*cast*/} />
+        <MovieInfo name="adult" value={adultContent} />
+        <MovieInfo name="date" value={release_date} />
+        <MovieInfo name="vote" value={vote_average} />
+        <MovieInfo name="language" value={original_language} />
       </div>
 
       <div className="movie__imdb">
-        {/* <Rating rating={Math.round(5 infos.rating)} />  */}
-        <a
-          href={"/" /*infos.imdbLink*/}
-          className="movie__imdb-button"
-          target="blank"
-        >
-          IMDb
-        </a>
+        <Link to={"/"} className="movie__imdb-button" target="blank">
+          See more
+        </Link>
       </div>
     </div>
   );
