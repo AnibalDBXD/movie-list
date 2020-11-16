@@ -1,7 +1,5 @@
 import React from "react";
 
-import { Link } from "react-router-dom";
-
 import { getPoster } from "../../api/index";
 
 import "./styles/Movie.scss";
@@ -25,6 +23,7 @@ const Movie = ({ data }) => {
     vote_average,
     original_language,
   } = data;
+
   const adultContent = adult ? "Yes" : "No";
 
   const caracterLimit = 150;
@@ -48,16 +47,10 @@ const Movie = ({ data }) => {
       <span className="movie__description">{overviewPost}</span>
 
       <div className="movie__infos">
-        <MovieInfo name="adult" value={adultContent} />
+        <MovieInfo name="adultContent" value={adultContent} />
         <MovieInfo name="date" value={release_date} />
         <MovieInfo name="vote" value={vote_average} />
         <MovieInfo name="language" value={original_language} />
-      </div>
-
-      <div className="movie__imdb">
-        <Link to={"/"} className="movie__imdb-button" target="blank">
-          See more
-        </Link>
       </div>
     </div>
   );

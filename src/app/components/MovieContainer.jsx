@@ -1,19 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import { getPopularMovie } from "../../api/index";
-import { FETCH_POPULAR_MOVIE } from "../../redux/Actions";
 
 import Movie from "./Movie";
 
-export const MovieContainer = (props) => {
+import LoadingComponent from "./LoadingComponent";
+
+export const MovieContainer = () => {
+  // Hooks
   const [ListMovies, setListMovies] = useState([]);
-  const [Page, setPage] = useState(props.page);
+
+  const [Page, setPage] = useState(1);
+
+  // This function update the State "ListMovies" to show A list of movies ;P
   const handleGetPopular = async () => {
     await getPopularMovie(Page).then((result) => {
-      props.dispatch(FETCH_POPULAR_MOVIE(result.data));
-      setListMovies(result.data.results);
+      const prevMovies = ListMovies;
+      const postMovies = result.data.results;
+      const Movies = prevMovies.concat(postMovies);
+      setListMovies(Movies);
     });
+  };
+  //Update the Page to find another page on the api
+  const updatePage = () => {
+    setPage(Page + 1);
   };
 
   useEffect(() => {
@@ -22,23 +33,26 @@ export const MovieContainer = (props) => {
 
   return (
     <div className="container">
-      <div className="row">
-        {ListMovies.map((item) => (
-          <div key={item.id} className="mt-4 col-12 col-md-6 col-lg-4 col-xl-3">
-            <Movie key={item.id} data={item} />
-          </div>
-        ))}
-      </div>
+      <InfiniteScroll
+        className="col"
+        dataLength={ListMovies.length}
+        next={updatePage}
+        hasMore={true}
+        loader={<LoadingComponent />}
+      >
+        <div className="row">
+          {ListMovies.map((item) => (
+            <div
+              key={item.id}
+              className="mt-4 col-12 col-md-6 col-lg-4 col-xl-3"
+            >
+              <Movie key={item.id} data={item} />
+            </div>
+          ))}
+        </div>
+      </InfiniteScroll>
     </div>
   );
 };
 
-const mapStateToProps = (state, props) => {
-  return {
-    movies: state.movies.list,
-    page: state.movies.page,
-    loading: state.loading,
-  };
-};
-
-export default connect(mapStateToProps)(MovieContainer);
+export default MovieContainer;

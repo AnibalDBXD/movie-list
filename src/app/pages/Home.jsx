@@ -11,20 +11,25 @@ function Home() {
     <main>
       <div className="container">
         <div className="row">
-          <div
-            className="col m-2"
-            style={{ textAlign: "center", color: "white" }}
-          >
-            <h1>Welcome to MovieList!</h1>
+          <div className="col-0">{/* <h1>Aside</h1> */}</div>
+          <div className="col-12">
+            <div className="row">
+              <div
+                className="col m-2"
+                style={{ textAlign: "center", color: "white" }}
+              >
+                <h1>Welcome to MovieList!</h1>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col">
+                <Search />
+              </div>
+            </div>
+            <div className="row" style={{ marginTop: "2em" }}>
+              <MovieContainer />
+            </div>
           </div>
-        </div>
-        <div className="row">
-          <div className="col">
-            <Search />
-          </div>
-        </div>
-        <div className="row" style={{ marginTop: "2em" }}>
-          <MovieContainer />
         </div>
       </div>
     </main>

@@ -5,13 +5,10 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 import data from "./redux/data";
 
+import "./app/index.css";
+
 const INITIAL_STATE = {
-  loading: true,
   search: [],
-  movies: {
-    page: 1,
-    list: [],
-  },
   movie: {},
 };
 
@@ -22,10 +19,8 @@ const store = createStore(
 );
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById("root")
 );
