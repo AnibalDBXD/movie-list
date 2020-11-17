@@ -1,8 +1,14 @@
+//React Dependecies
 import React, { lazy, Suspense, useState, useEffect } from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
 
+//Redux Dependencies
+import { connect } from "react-redux";
+
+//Api
 import { getPopularMovie } from "../../api/index";
 
+//Components
+import InfiniteScroll from "react-infinite-scroll-component";
 import LoadingComponent from "./LoadingComponent";
 
 const Movie = lazy(() => import("./Movie"));
@@ -57,4 +63,10 @@ export const MovieContainer = () => {
   );
 };
 
-export default MovieContainer;
+const MapStateToProps = (props) => {
+  return {
+    searched_movies: props.searched_movies,
+  };
+};
+
+export default connect(MapStateToProps)(MovieContainer);

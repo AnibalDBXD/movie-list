@@ -1,12 +1,15 @@
 import React from "react";
-
-import Search from "../components/Search";
+import { connect } from "react-redux";
 
 import "./styles/Home.scss";
 
+import Search from "../components/Search";
+
 import MovieContainer from "../components/MovieContainer.jsx";
 
-function Home() {
+import MoviesSearchedContainer from "../components/MoviesSearchedContainer.jsx";
+
+function Home(props) {
   return (
     <main>
       <div className="container">
@@ -27,7 +30,11 @@ function Home() {
               </div>
             </div>
             <div className="row" style={{ marginTop: "2em" }}>
-              <MovieContainer />
+              {props.movie_searched ? (
+                <MoviesSearchedContainer />
+              ) : (
+                <MovieContainer />
+              )}
             </div>
           </div>
         </div>
@@ -36,4 +43,10 @@ function Home() {
   );
 }
 
-export default Home;
+const MapStateToProps = (state) => {
+  return {
+    movie_searched: state.movie_searched,
+  };
+};
+
+export default connect(MapStateToProps)(Home);

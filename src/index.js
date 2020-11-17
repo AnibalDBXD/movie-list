@@ -6,7 +6,8 @@ import { createStore } from "redux";
 import data from "./redux/data";
 
 const INITIAL_STATE = {
-  search: [],
+  movie_searched: "",
+  searched_movies: [],
   movie: {},
 };
 
