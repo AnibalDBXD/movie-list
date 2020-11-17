@@ -5,8 +5,6 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 import data from "./redux/data";
 
-import "./app/index.css";
-
 const INITIAL_STATE = {
   search: [],
   movie: {},

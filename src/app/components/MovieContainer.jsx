@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { lazy, Suspense, useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import { getPopularMovie } from "../../api/index";
 
-import Movie from "./Movie";
-
 import LoadingComponent from "./LoadingComponent";
+
+const Movie = lazy(() => import("./Movie"));
 
 export const MovieContainer = () => {
   // Hooks
@@ -40,16 +40,18 @@ export const MovieContainer = () => {
         hasMore={true}
         loader={<LoadingComponent />}
       >
-        <div className="row">
-          {ListMovies.map((item) => (
-            <div
-              key={item.id}
-              className="mt-4 col-12 col-md-6 col-lg-4 col-xl-3"
-            >
-              <Movie key={item.id} data={item} />
-            </div>
-          ))}
-        </div>
+        <Suspense fallback={<LoadingComponent />}>
+          <div className="row">
+            {ListMovies.map((item) => (
+              <div
+                key={item.id}
+                className="mt-4 col-12 col-md-6 col-lg-6 col-xl-6"
+              >
+                <Movie key={item.id} data={item} />
+              </div>
+            ))}
+          </div>
+        </Suspense>
       </InfiniteScroll>
     </div>
   );

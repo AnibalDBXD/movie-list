@@ -1,8 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { getPoster } from "../../api/index";
 
 import "./styles/Movie.scss";
+
+import loadingPlaceHolder from "../../assets/loading_placerholder.png";
+
+const useLazyImage = (src) => {
+  const [sourceLoaded, setsourceLoaded] = useState(null);
+
+  useEffect(() => {
+    const img = new Image();
+
+    img.src = src;
+
+    img.onload = () => setsourceLoaded(src);
+  }, [src]);
+
+  return sourceLoaded;
+};
 
 const MovieInfo = ({ name, value }) => (
   <div className={`movie__${name}`}>
@@ -30,11 +46,17 @@ const Movie = ({ data }) => {
 
   const overviewPost = overview.slice(0, caracterLimit) + "...";
 
+  const posterURL = getPoster(poster_path);
+
+  const posterLoaded = useLazyImage(posterURL);
+
   return (
     <div
       className="movie"
       style={{
-        backgroundImage: `url(${getPoster(poster_path)})`,
+        backgroundImage: `url(${posterLoaded || loadingPlaceHolder}`,
+        backgroundSize: "280px 400px",
+        backgroundRepeat: "no-repeat",
         color: "white",
       }}
     >
