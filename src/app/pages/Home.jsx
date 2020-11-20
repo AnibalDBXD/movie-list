@@ -14,7 +14,6 @@ function Home(props) {
     <main>
       <div className="container">
         <div className="row">
-          <div className="col-0">{/* <h1>Aside</h1> */}</div>
           <div className="col-12">
             <div className="row">
               <div
