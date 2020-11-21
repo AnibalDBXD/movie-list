@@ -25,7 +25,6 @@ export const MovieContainer = (props) => {
   const [data, loading] = useAxiosFetch(URL);
 
   //Searched
-
   const Query = props.movie_searched;
 
   const UrlQuery =
@@ -55,30 +54,47 @@ export const MovieContainer = (props) => {
 
   return (
     <div className="container">
-      <InfiniteScroll
-        className="col"
-        dataLength={ListMovies.length}
-        next={updatePage}
-        hasMore={true}
-        loader={<LoadingComponent />}
-      >
-        <Suspense fallback={<LoadingComponent />}>
-          <div className="row">
-            {loading ? (
-              <LoadingComponent />
-            ) : (
-              ListMovies.map((item) => (
+      {Query ? (
+        <div className="col">
+          <Suspense fallback={<LoadingComponent />}>
+            <div className="row">
+              {ListMovies.map((item) => (
                 <div
                   key={item.id}
                   className="mt-4 col-12 col-md-6 col-lg-6 col-xl-6"
                 >
                   <Movie key={item.id} data={item} />
                 </div>
-              ))
-            )}
-          </div>
-        </Suspense>
-      </InfiniteScroll>
+              ))}
+            </div>
+          </Suspense>
+        </div>
+      ) : (
+        <InfiniteScroll
+          className="col"
+          dataLength={ListMovies.length}
+          next={updatePage}
+          hasMore={true}
+          loader={<LoadingComponent />}
+        >
+          <Suspense fallback={<LoadingComponent />}>
+            <div className="row">
+              {loading ? (
+                <LoadingComponent />
+              ) : (
+                ListMovies.map((item) => (
+                  <div
+                    key={item.id}
+                    className="mt-4 col-12 col-md-6 col-lg-6 col-xl-6"
+                  >
+                    <Movie key={item.id} data={item} />
+                  </div>
+                ))
+              )}
+            </div>
+          </Suspense>
+        </InfiniteScroll>
+      )}
     </div>
   );
 };
