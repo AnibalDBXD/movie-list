@@ -7,9 +7,7 @@ import Search from "../components/Search";
 
 import MovieContainer from "../components/MovieContainer.jsx";
 
-import MoviesSearchedContainer from "../components/MoviesSearchedContainer.jsx";
-
-function Home(props) {
+function Home() {
   return (
     <main>
       <div className="container">
@@ -29,11 +27,7 @@ function Home(props) {
               </div>
             </div>
             <div className="row" style={{ marginTop: "2em" }}>
-              {props.movie_searched ? (
-                <MoviesSearchedContainer />
-              ) : (
-                <MovieContainer />
-              )}
+              <MovieContainer />
             </div>
           </div>
         </div>
@@ -42,10 +36,4 @@ function Home(props) {
   );
 }
 
-const MapStateToProps = (state) => {
-  return {
-    movie_searched: state.movie_searched,
-  };
-};
-
-export default connect(MapStateToProps)(Home);
+export default Home;

@@ -14,27 +14,44 @@ import LoadingComponent from "./LoadingComponent";
 
 const Movie = lazy(() => import("./Movie"));
 
-export const MovieContainer = () => {
+export const MovieContainer = (props) => {
   // Hooks
   const [ListMovies, setListMovies] = useState([]);
 
   const [Page, setPage] = useState(1);
+
   const { TOKEN, API_URL } = Config;
   const URL = API_URL + `movie/popular?api_key=${TOKEN}&page=${Page}`;
+  const [data, loading] = useAxiosFetch(URL);
 
-  const { data, loading } = useAxiosFetch(URL);
+  //Searched
+
+  const Query = props.movie_searched;
+
+  const UrlQuery =
+    Query !== ""
+      ? API_URL + `search/movie?api_key=${TOKEN}&language=en-US&query=${Query}`
+      : null;
+  const [dataQuery] = useAxiosFetch(UrlQuery);
 
   //Update the Page to find another page on the api
   const updatePage = () => {
     setPage(Page + 1);
   };
 
+  // Get Popular Movies, Infinite Scroll
   useEffect(() => {
     const prevMovies = ListMovies;
     const postMovies = data.results ? data.results : [];
     const Movies = prevMovies.concat(postMovies);
     setListMovies(Movies);
   }, [data]);
+
+  // Search
+  useEffect(() => {
+    const ResultMovies = dataQuery.results ? dataQuery.results : [];
+    setListMovies(ResultMovies);
+  }, [Query]);
 
   return (
     <div className="container">
@@ -66,10 +83,8 @@ export const MovieContainer = () => {
   );
 };
 
-const MapStateToProps = (props) => {
-  return {
-    searched_movies: props.searched_movies,
-  };
-};
+const mapStateToProps = (state) => ({
+  movie_searched: state.movie_searched,
+});
 
-export default connect(MapStateToProps)(MovieContainer);
+export default connect(mapStateToProps)(MovieContainer);

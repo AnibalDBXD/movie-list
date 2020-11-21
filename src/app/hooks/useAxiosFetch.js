@@ -38,7 +38,7 @@ const useAxiosFetch = (url) => {
     };
   }, [url]);
 
-  return { data, loading, error, errorMessage };
+  return [data, loading, error, errorMessage];
 };
 
 export default useAxiosFetch;

@@ -33,7 +33,6 @@ const Movie = ({ data }) => {
   const overviewPost = overview.slice(0, caracterLimit) + "...";
 
   const posterURL = `https://image.tmdb.org/t/p/original/${poster_path}`;
-
   const posterLoaded = useLazyImage(posterURL);
 
   return (
